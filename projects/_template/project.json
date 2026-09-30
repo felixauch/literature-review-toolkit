@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "name": "New literature review",
+  "slug": "new-review",
+  "description": "",
+  "frozen": false,
+  "contact_email": "",
+  "population_label": "study setting",
+  "record_prefix": "R",
+  "supplementary_prefix": "S",
+  "limits": {
+    "min_year": 0,
+    "languages": []
+  },
+  "exports": [],
+  "abstract_supplements": [],
+  "manual_doi_merges": [],
+  "paths": {
+    "zotero_storage": "",
+    "download_dirs": []
+  },
+  "exclusion_codes": [
+    "out_of_scope",
+    "wrong_population",
+    "wrong_concept",
+    "wrong_context",
+    "before_min_year",
+    "language",
+    "publication_type",
+    "duplicate",
+    "not_retrievable",
+    "insufficient_detail",
+    "needs_review"
+  ],
+  "contested_ids": [],
+  "chase_strict_bar": false,
+  "patterns": {
+    "population": "",
+    "technology": "",
+    "context": "",
+    "wrong_population": "",
+    "out_of_scope": "",
+    "other_discipline": "",
+    "market_only": "",
+    "sensor_only": "",
+    "review": "",
+    "ft_population": "",
+    "ft_decision": "",
+    "ft_operation": "",
+    "ft_method_only": "",
+    "ft_management_variable": "",
+    "ft_monitoring": "",
+    "ft_out_of_scope": "",
+    "agent": "",
+    "contribution_cue": "",
+    "chase_population": "",
+    "chase_technology": ""
+  },
+  "screening_rules": [
+    {
+      "if": "always",
+      "decision": "Maybe",
+      "code": "needs_review",
+      "reason": "No project-specific rule matched; reviewer decision required."
+    }
+  ],
+  "taxonomy": {
+    "domains": [],
+    "default_domain": "Unassigned",
+    "tiers": [],
+    "default_tier": "Unassigned",
+    "operational_tiers": [],
+    "saturated_domains": [],
+    "link_labels": {
+      "implicit": "informational",
+      "explicit": "advisory",
+      "operational": "executive"
+    }
+  },
+  "completeness_queries": [],
+  "ui": {
+    "title": "Literature screening",
+    "subtitle": "Rules propose; you decide. Save decisions to the project CSV."
+  }
+}
