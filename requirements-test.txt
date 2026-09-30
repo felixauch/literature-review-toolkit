@@ -1,0 +1,3 @@
+# Optional: generate fictional PDFs for the packaged regression tests.
+-r requirements.txt
+reportlab>=4.0

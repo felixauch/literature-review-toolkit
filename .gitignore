@@ -1,0 +1,17 @@
+# Local environments and generated files
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+*.lock
+*.backup.csv
+.env
+.env.*
+LOCAL_*.json
+
+# Reviews are user data; keep only the reusable template in this repository.
+/projects/*
+!/projects/_template/
+/runs/
+/reviews/
+/exports/

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="672pt" height="339.40000000000003pt" viewBox="0 0 672 339.40000000000003">
+<title>Literature review toolkit: workflow and scripts</title>
+<desc>Seven workflow stages, shared support and tests. All 76 Python, JavaScript and Windows command files are shown.</desc>
+<rect width="672" height="339.40000000000003" fill="white"/>
+<rect x="0.0" y="0" width="216.0" height="93.80000000000001" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="9.0" y="16" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">1  Configure and open</text>
+<text x="9.0" y="32.0" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">Setup.cmd · Start review.cmd</text>
+<text x="9.0" y="42.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">bootstrap_env.py · workflow.py</text>
+<text x="9.0" y="52.6" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">toolkit.py · R/project_setup.py</text>
+<text x="9.0" y="62.900000000000006" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/setup_server.py · R/start.py</text>
+<text x="9.0" y="73.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/launch.py · Q/setup.js</text>
+<rect x="228.0" y="0" width="216.0" height="93.80000000000001" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="237.0" y="16" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">2  Import and screen</text>
+<text x="237.0" y="32.0" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/merge_screen.py · T/merge_abstracts.py</text>
+<text x="237.0" y="42.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/audit_dedup.py</text>
+<text x="237.0" y="52.6" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/backcheck_classifier.py</text>
+<text x="237.0" y="62.900000000000006" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">U/build_data.py · U/evidence.py</text>
+<text x="237.0" y="73.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">U/runner.py · U/serve.py · U/app.js</text>
+<text x="237.0" y="83.5" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">U/setup.js</text>
+<rect x="456.0" y="0" width="216.0" height="93.80000000000001" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="465.0" y="16" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">3  Check full texts</text>
+<text x="465.0" y="32.0" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/pdfs.py · T/import_pdf_manifest.py</text>
+<text x="465.0" y="42.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/analyse_fulltexts.py</text>
+<text x="465.0" y="52.6" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/recommend_fulltext.py</text>
+<text x="465.0" y="62.900000000000006" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/build_fulltext_audit.py</text>
+<text x="465.0" y="73.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/corpus_files.py · U/audit.js</text>
+<rect x="456.0" y="105.80000000000001" width="216.0" height="83.5" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="465.0" y="121.80000000000001" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">4  Extend the search</text>
+<text x="465.0" y="137.8" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/citation_chase.py · T/chase_screen.py</text>
+<text x="465.0" y="148.10000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/build_supplementary_review.py</text>
+<text x="465.0" y="158.4" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/ingest_pending.py</text>
+<text x="465.0" y="168.70000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/completeness_check.py</text>
+<text x="465.0" y="179.0" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/recall_check.py</text>
+<rect x="228.0" y="105.80000000000001" width="216.0" height="83.5" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="237.0" y="121.80000000000001" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">5  Classify the papers</text>
+<text x="237.0" y="137.8" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">handoff.py · R/prepare_review.py</text>
+<text x="237.0" y="148.10000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/classification_store.py</text>
+<text x="237.0" y="158.4" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/domain_rules.py · R/passages.py</text>
+<text x="237.0" y="168.70000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/paper_sections.py · V/classification.js</text>
+<rect x="0.0" y="105.80000000000001" width="216.0" height="83.5" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="9.0" y="121.80000000000001" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">6  Extract and review evidence</text>
+<text x="9.0" y="137.8" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/run_synthesis.py · R/choices.py</text>
+<text x="9.0" y="148.10000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/reading_plan.py · S/extract.py</text>
+<text x="9.0" y="158.4" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">S/engine.py · S/schema.py · S/store.py</text>
+<text x="9.0" y="168.70000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">S/server.py · S/__init__.py · V/app.js</text>
+<text x="9.0" y="179.0" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">V/choices.js · V/reading.js</text>
+<rect x="0.0" y="201.3" width="216.0" height="104.10000000000001" rx="5" fill="#f6f9fd" stroke="#b1c5da" stroke-width="0.65"/>
+<text x="9.0" y="217.3" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#245490">7  Map, synthesise and export</text>
+<text x="9.0" y="233.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/assess_corpus.py · T/core_domains.py</text>
+<text x="9.0" y="243.60000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/build_overview.py</text>
+<text x="9.0" y="253.9" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/build_synthesis.py · T/export_bibtex.py</text>
+<text x="9.0" y="264.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/export_latex_listing.py</text>
+<text x="9.0" y="274.5" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/organise_folders.py</text>
+<text x="9.0" y="284.8" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/assessment_browser.py · V/snapshot.js</text>
+<text x="9.0" y="295.1" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">V/synthesis-map.js</text>
+<rect x="228.0" y="201.3" width="216.0" height="104.10000000000001" rx="5" fill="#f7f8f9" stroke="#d3d9df" stroke-width="0.65"/>
+<text x="237.0" y="217.3" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#53616d">Shared support</text>
+<text x="237.0" y="233.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/lib.py · T/project_config.py</text>
+<text x="237.0" y="243.60000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/csv_storage.py · R/migrate_legacy.py</text>
+<text x="237.0" y="253.9" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/recover_csv.py</text>
+<text x="237.0" y="264.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">T/apply_adjudications.py</text>
+<rect x="456.0" y="201.3" width="216.0" height="104.10000000000001" rx="5" fill="#f7f8f9" stroke="#d3d9df" stroke-width="0.65"/>
+<text x="465.0" y="217.3" font-family="Arial, sans-serif" font-size="9.9" font-weight="bold" fill="#53616d">Tests</text>
+<text x="465.0" y="233.3" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_configurable.py</text>
+<text x="465.0" y="243.60000000000002" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_confirmed_exports.py</text>
+<text x="465.0" y="253.9" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_csv_storage.py</text>
+<text x="465.0" y="264.2" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_paper_sections.py</text>
+<text x="465.0" y="274.5" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_reading_choices.py</text>
+<text x="465.0" y="284.8" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_setup.py · R/test_snapshot.cjs</text>
+<text x="465.0" y="295.1" font-family="Consolas, monospace" font-size="8.7" font-weight="normal" fill="#202d38">R/test_synthesis_map.cjs</text>
+<path d="M217.0,14 L227.0,14" stroke="#5a7895" stroke-width="1.1"/><polygon points="227.0,14 223.0,12.0 223.0,16.0" fill="#5a7895"/>
+<path d="M445.0,14 L455.0,14" stroke="#5a7895" stroke-width="1.1"/><polygon points="455.0,14 451.0,12.0 451.0,16.0" fill="#5a7895"/>
+<path d="M568.0,94.80000000000001 L568.0,104.80000000000001" stroke="#5a7895" stroke-width="1.1"/><polygon points="568.0,104.80000000000001 570.0,100.80000000000001 566.0,100.80000000000001" fill="#5a7895"/>
+<path d="M560.0,104.80000000000001 L560.0,94.80000000000001" stroke="#5a7895" stroke-width="1.1"/><polygon points="560.0,94.80000000000001 558.0,98.80000000000001 562.0,98.80000000000001" fill="#5a7895"/>
+<path d="M455.0,119.80000000000001 L445.0,119.80000000000001" stroke="#5a7895" stroke-width="1.1"/><polygon points="445.0,119.80000000000001 449.0,121.80000000000001 449.0,117.80000000000001" fill="#5a7895"/>
+<path d="M227.0,119.80000000000001 L217.0,119.80000000000001" stroke="#5a7895" stroke-width="1.1"/><polygon points="217.0,119.80000000000001 221.0,121.80000000000001 221.0,117.80000000000001" fill="#5a7895"/>
+<path d="M108.0,190.3 L108.0,200.3" stroke="#5a7895" stroke-width="1.1"/><polygon points="108.0,200.3 110.0,196.3 106.0,196.3" fill="#5a7895"/>
+<text x="0" y="316.40000000000003" font-family="Arial, sans-serif" font-size="8.2" font-weight="normal" fill="#445465">Paths: T = toolkit/; U = T/ui/; R = T/review_workspace/; S = R/synthesis/; V = S/static/; Q = R/setup_ui/.</text>
+<text x="0" y="328.40000000000003" font-family="Arial, sans-serif" font-size="8.2" font-weight="normal" fill="#445465">Unprefixed files are in the package root. Shared support and tests apply across the workflow.</text>
+</svg>
