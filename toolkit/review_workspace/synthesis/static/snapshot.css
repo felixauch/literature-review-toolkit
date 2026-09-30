@@ -1,0 +1,12 @@
+/* Shared layout; only editing and absent source controls are hidden. */
+body.snapshot #review-footer,body.snapshot #reading-panel,body.snapshot #paper-sections,
+body.snapshot #open-pdf,body.snapshot #toggle-source,body.snapshot .evidence-pane,
+body.snapshot #domain-notes,body.snapshot .class-actions,body.snapshot .class-check,
+body.snapshot #classification-panel>p,body.snapshot #classification-panel>details,
+body.snapshot #classification-panel>label,body.snapshot .class-card>p,
+body.snapshot .class-card>details,body.snapshot .class-domain-row>details,
+body.snapshot .evidence-chips,body.snapshot #legacy-notes{display:none!important}
+body.snapshot input:disabled,body.snapshot select:disabled,body.snapshot textarea:disabled{opacity:1;color:var(--ink,#193758);background:#f7f9fc;cursor:default}
+.snapshot-banner{display:flex;align-items:center;gap:16px;padding:10px 24px;border-bottom:1px solid #d7e2ef;background:#edf3f9;color:#35516d;font-size:13px}
+.snapshot-banner span{flex:1}.snapshot-banner label{cursor:pointer;font-weight:600}.snapshot-banner input{max-width:240px}
+body.snapshot .source-links a{color:inherit;text-decoration:none;pointer-events:none}
