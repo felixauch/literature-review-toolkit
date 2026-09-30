@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Literature review toolkit — screening</title>
+    <link rel="stylesheet" href="styles.css?v=20260811-url-resolve2" />
+  <link rel="stylesheet" href="theme.css?v=20260924" />
+</head>
+  <body class="screening">
+    <aside>
+      <div>
+        <div class="toolkit-mark">Review &amp; synthesis toolkit</div>
+        <p class="toolkit-credit">Developed with assistance from GPT-6 Astra.</p>
+        <h1>Title screening</h1>
+        <div class="sub">
+          Scripts suggest · you decide.<br />
+          Progress autosaves in this browser.
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="stat-decided">0</b><span>Decided</span></div>
+        <div class="stat"><b id="stat-left">0</b><span>Left</span></div>
+        <div class="stat"><b id="stat-include">0</b><span>Include</span></div>
+        <div class="stat"><b id="stat-maybe">0</b><span>Maybe</span></div>
+        <div class="stat"><b id="stat-exclude">0</b><span>Exclude</span></div>
+        <div class="stat"><b id="stat-total">0</b><span>Total</span></div>
+      </div>
+
+      <div>
+        <div class="progress"><i id="progress-bar"></i></div>
+        <div class="sub" id="progress-label" style="margin-top: 0.4rem">0%</div>
+      </div>
+
+      <div class="mode-btns">
+        <button type="button" id="mode-screen" class="mode active">Screen new</button>
+        <button type="button" id="mode-review" class="mode">Review decided</button>
+      </div>
+      <button type="button" id="mode-report" class="mode report-mode">
+        Included report
+      </button>
+      <button type="button" id="mode-corpus" class="mode report-mode">
+        Screened Includes
+      </button>
+      <button type="button" id="mode-assess" class="mode report-mode">
+        Single-label report (optional)
+      </button>
+      <button type="button" id="mode-supplementary" class="mode report-mode">
+        Supplementary
+      </button>
+      <button type="button" id="mode-categorization" class="mode report-mode">
+        Single-label edits (optional)
+      </button>
+      <a class="mode report-mode" href="setup.html" style="display:block;text-align:center;text-decoration:none;color:inherit">
+        Project setup &amp; run
+      </a>
+      <a class="mode report-mode" href="fulltext_audit.html" style="display:block;text-align:center;text-decoration:none;color:inherit">
+        Full-text audit
+      </a>
+      <button type="button" id="mode-doi-check" class="mode report-mode">
+        DOI check
+      </button>
+
+      <a class="mode report-mode" href="workflow.html" style="display:block;text-align:center;text-decoration:none;color:inherit">Classification, evidence &amp; synthesis →</a>
+      <div class="filters">
+        <label for="filter-pass">Pass / queue</label>
+        <select id="filter-pass">
+          <option value="A1_clear">A1 — Clear excludes</option>
+          <option value="A2_contested">A2 — Contested excludes</option>
+          <option value="B_include">B — Suggested includes</option>
+          <option value="C_maybe">C — Maybe / needs abstract (incl. your Maybes)</option>
+          <option value="D1_backcheck_include">D1 — Backcheck: likely Include</option>
+          <option value="D2_backcheck_exclude">D2 — Backcheck: likely Exclude</option>
+          <option value="D3_backcheck_uncertain">D3 — Backcheck: still uncertain</option>
+          <option value="all">All passes</option>
+        </select>
+
+        <label for="filter-status">Status</label>
+        <select id="filter-status">
+          <option value="undecided">Undecided only</option>
+          <option value="all">All statuses</option>
+          <option value="decided">Decided only</option>
+          <option value="Include">Your Include</option>
+          <option value="Maybe">Your Maybe</option>
+          <option value="Exclude">Your Exclude</option>
+        </select>
+
+        <label for="search">Search</label>
+        <input id="search" type="search" placeholder="ID, title, author…" />
+      </div>
+
+      <div class="review-list-wrap">
+        <div class="review-list-label">Jump to record</div>
+        <div id="review-list" class="review-list"></div>
+      </div>
+
+      <div class="side-actions">
+        <button id="btn-save">Save to CSV (S)</button>
+        <button id="btn-export" class="secondary">Export decisions CSV</button>
+      </div>
+    </aside>
+
+    <main>
+      <section id="screen-view">
+        <div class="toolbar">
+          <div class="meta" id="queue-meta">Loading…</div>
+          <div class="nav-btns">
+            <button id="btn-prev">← Prev (K)</button>
+            <button id="btn-next">Next (J) →</button>
+          </div>
+        </div>
+        <div class="card" id="card">Loading records…</div>
+      </section>
+
+      <section id="report-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Full-text screening cohort</p>
+            <h2>Included-paper report</h2>
+            <p>
+              Full-text recommendations are draft assessments. They distinguish abstract-only
+              evidence, available open-access links, and genuinely reviewed local PDFs.
+            </p>
+          </div>
+          <button id="btn-report-export" class="secondary">Export report CSV</button>
+        </div>
+        <div id="report-summary" class="report-summary"></div>
+        <div class="report-filters">
+          <label>Domain <select id="report-domain"></select></label>
+          <label>Technology tier <select id="report-tier"></select></label>
+          <label>Recommendation <select id="report-recommendation"></select></label>
+          <label>Evidence <select id="report-evidence"></select></label>
+          <label>Search <input id="report-search" type="search" placeholder="Title, author, DOI…" /></label>
+        </div>
+        <div id="report-count" class="report-count"></div>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Record</th>
+                <th>Domain</th>
+                <th>Tier</th>
+                <th>Recommendation</th>
+                <th>Paper</th>
+                <th>Evidence / source</th>
+              </tr>
+            </thead>
+            <tbody id="report-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="assess-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Full-text assessment</p>
+            <h2>Categorised &amp; assessed corpus</h2>
+            <p>
+              Every final Include is assessed from its full text: application
+              domain and technology tier, a transparent <b>relevance</b> score,
+              the strength of its <b>decision link</b>, and a short
+              <b>what we can use</b> note with an evidence excerpt. Papers we
+              should still consider excluding are flagged; use <b>Exclude</b> to
+              drop one (its project PDF copy is deleted, source file kept). All
+              scores are heuristic drafts for you to confirm.
+            </p>
+          </div>
+          <div class="corpus-actions">
+            <button id="btn-assess-synthesis" class="secondary">View synthesis draft</button>
+            <button id="btn-assess-export" class="secondary">Export assessment CSV</button>
+          </div>
+        </div>
+        <div id="assess-summary" class="report-summary"></div>
+        <div class="report-filters">
+          <label>Relevance
+            <select id="assess-band">
+              <option value="all">All relevance</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </label>
+          <label>Decision link
+            <select id="assess-link">
+              <option value="all">All links</option>
+              <option value="explicit">Explicit</option>
+              <option value="operational">Operational</option>
+              <option value="implicit">Implicit</option>
+              <option value="none">None</option>
+            </select>
+          </label>
+          <label>Domain <select id="assess-domain"></select></label>
+          <label>Tier <select id="assess-tier"></select></label>
+          <label class="checkbox-filter">
+            <input type="checkbox" id="assess-candidates" /> Exclude candidates only
+          </label>
+          <label>Sort
+            <select id="assess-sort">
+              <option value="relevance-desc">Relevance high → low</option>
+              <option value="relevance-asc">Relevance low → high</option>
+              <option value="record">Record ID</option>
+            </select>
+          </label>
+          <label>Search <input id="assess-search" type="search" placeholder="Title, author, DOI…" /></label>
+        </div>
+        <div id="assess-count" class="report-count"></div>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Record</th>
+                <th>Relevance</th>
+                <th>Domain / tier</th>
+                <th>Decision link</th>
+                <th>What we can use</th>
+                <th>Decision</th>
+              </tr>
+            </thead>
+            <tbody id="assess-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="corpus-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Full-text eligibility decisions</p>
+            <h2>Included papers</h2>
+            <p>
+              These papers passed full-text screening. Domain and tier labels shown here are provisional. Use the combined review to confirm classifications and export the final corpus. Use <b>Exclude</b> if you
+              change your mind while browsing — the copied corpus PDF is
+              deleted (the source file is kept). Papers without a PDF need
+              one added to <code>pdfs/02_final_included</code>;
+              after adding files, click <b>Rescan PDF folder</b>.
+            </p>
+          </div>
+          <div class="corpus-actions">
+            <button id="btn-corpus-rescan" class="secondary">Rescan PDF folder</button>
+            <button id="btn-corpus-export" class="secondary">Export screening draft CSV</button>
+          </div>
+        </div>
+        <div id="corpus-summary" class="report-summary"></div>
+        <div class="report-filters">
+          <label>PDF status
+            <select id="corpus-pdf-filter">
+              <option value="all">All papers</option>
+              <option value="has">PDF in corpus</option>
+              <option value="missing">PDF missing</option>
+            </select>
+          </label>
+          <label>Domain <select id="corpus-domain"></select></label>
+          <label>Search <input id="corpus-search" type="search" placeholder="Title, author, DOI…" /></label>
+        </div>
+        <div id="corpus-count" class="report-count"></div>
+        <div class="report-table-wrap">
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Record</th>
+                <th>Paper</th>
+                <th>Domain / tier</th>
+                <th>PDF</th>
+                <th>Decision</th>
+              </tr>
+            </thead>
+            <tbody id="corpus-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="supplementary-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Citation-chasing arm</p>
+            <h2>Supplementary papers — final review</h2>
+            <p>
+              All pending citation-chase records
+              (<code>S####</code>). Use <b>Include in corpus</b> or
+              <b>Exclude from corpus</b> on each card — the card disappears
+              immediately so you can work through the queue. Excluding deletes the
+              copied project PDF (source file kept).
+            </p>
+          </div>
+          <div class="corpus-actions">
+            <button id="btn-supplementary-reset-queue" class="secondary" type="button">Reset queue</button>
+            <button id="btn-supplementary-export" class="secondary">Export summary CSV</button>
+          </div>
+        </div>
+        <div id="supplementary-summary" class="report-summary"></div>
+        <div class="report-filters">
+          <label>Primary domain <select id="supplementary-domain"></select></label>
+          <label>Technology tier
+            <select id="supplementary-tier">
+              <option value="all">All tiers</option>
+            </select>
+          </label>
+          <label>Decision link
+            <select id="supplementary-link">
+              <option value="all">All links</option>
+              <option value="explicit">Advisory (explicit)</option>
+              <option value="operational">Executive (operational)</option>
+              <option value="implicit">Informational (implicit)</option>
+            </select>
+          </label>
+          <label>Final decision
+            <select id="supplementary-decision">
+              <option value="queue" selected>Review queue (hide decided)</option>
+              <option value="all">All decisions</option>
+              <option value="Include">Include only</option>
+              <option value="Exclude">Exclude only</option>
+              <option value="pending">Pending only</option>
+            </select>
+          </label>
+          <label>Sort
+            <select id="supplementary-sort">
+              <option value="decision">Decision (pending → exclude → include)</option>
+              <option value="relevance-desc">Relevance high → low</option>
+              <option value="record">Record ID</option>
+              <option value="domain">Primary domain</option>
+            </select>
+          </label>
+          <label>Search <input id="supplementary-search" type="search" placeholder="Title, author, ID…" /></label>
+        </div>
+        <div id="supplementary-count" class="report-count"></div>
+        <div id="supplementary-list" class="supplementary-list"></div>
+      </section>
+
+      <section id="categorization-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Optional single-label drafts</p>
+            <h2>Categorization review — all included papers</h2>
+            <p>
+              Charting review for all final Includes, using the
+              coupled scheme: <b>tier</b> says what the artefact <i>is</i>
+              (tiers as defined in project.json); <b>mode</b> says what it
+              <i>does</i> about the decision (informational&nbsp;= measures ·
+              advisory&nbsp;= recommends · executive&nbsp;= acts on the crop).
+              Executive requires Agent tier; a scouting robot is an Agent in
+              informational mode. Adjust the dropdowns, add an optional note,
+              then <b>Save categorization</b> — saved cards leave the queue.
+            </p>
+          </div>
+          <div class="corpus-actions">
+            <button id="btn-categorization-reset-queue" class="secondary" type="button">Reset queue</button>
+            <button id="btn-categorization-export" class="secondary">Export categorization CSV</button>
+          </div>
+        </div>
+        <div id="categorization-summary" class="report-summary"></div>
+        <div class="report-filters">
+          <label>Primary domain <select id="categorization-domain"></select></label>
+          <label>Technology tier
+            <select id="categorization-tier">
+              <option value="all">All tiers</option>
+            </select>
+          </label>
+          <label>Decision link
+            <select id="categorization-link">
+              <option value="all">All links</option>
+              <option value="explicit">Advisory (explicit)</option>
+              <option value="operational">Executive (operational)</option>
+              <option value="implicit">Informational (implicit)</option>
+              <option value="none">No clear link</option>
+            </select>
+          </label>
+          <label>Review
+            <select id="categorization-queue">
+              <option value="queue" selected>Review queue (hide saved)</option>
+              <option value="all">All papers</option>
+            </select>
+          </label>
+          <label>Sort
+            <select id="categorization-sort">
+              <option value="record">Record ID</option>
+              <option value="tier">Technology tier</option>
+              <option value="domain">Primary domain</option>
+              <option value="relevance-desc">Relevance high → low</option>
+            </select>
+          </label>
+          <label>Search <input id="categorization-search" type="search" placeholder="Title, author, ID…" /></label>
+        </div>
+        <div id="categorization-count" class="report-count"></div>
+        <div id="categorization-list" class="categorization-list"></div>
+      </section>
+
+      <section id="doi-check-view" hidden>
+        <div class="report-head">
+          <div>
+            <p class="eyebrow">Is this paper already in the project?</p>
+            <h2>DOI lookup</h2>
+            <p>
+              Paste a DOI, a publisher link, or a Google Scholar link. Scholar
+              links that wrap an MDPI, Elsevier, or Springer URL are unpacked
+              automatically; MDPI and ScienceDirect links are resolved via
+              Crossref. For IEEE, copy the DOI from the article page if a
+              direct link does not resolve.
+            </p>
+          </div>
+        </div>
+        <div class="doi-check-form card">
+          <label for="doi-check-input">DOI or link</label>
+          <div class="doi-check-row">
+            <input
+              id="doi-check-input"
+              type="text"
+              placeholder="Scholar / MDPI / IEEE / doi.org link…"
+              spellcheck="false"
+              autocomplete="off"
+            />
+            <button type="button" id="btn-doi-check">Check</button>
+          </div>
+          <p class="doi-check-hint">Enter to check · recent lookups saved in this browser session</p>
+        </div>
+        <div id="doi-check-result"></div>
+        <div id="doi-check-history-wrap" hidden>
+          <h3 class="doi-check-history-title">Recent checks</h3>
+          <div id="doi-check-history" class="doi-check-history"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+    <script src="app.js?v=20260925-confirmed-exports"></script>
+  </body>
+</html>

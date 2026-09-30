@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Literature review toolkit — full-text audit</title>
+    <link rel="stylesheet" href="styles.css?v=20260818-audit2" />
+    <link rel="stylesheet" href="audit.css?v=20260818-audit2" />
+  <link rel="stylesheet" href="theme.css?v=20260924" />
+</head>
+  <body class="audit-page">
+    <aside>
+      <div>
+        <div class="toolkit-mark">Review &amp; synthesis toolkit</div>
+        <h1>Full-text audit</h1>
+        <div class="sub">
+          Local full-text extracts and label checks.<br />
+          Quotes support charted labels; flags mark mismatches.
+        </div>
+      </div>
+
+      <div class="stats" id="audit-stats">
+        <div class="stat"><b id="stat-total">–</b><span>Papers</span></div>
+        <div class="stat"><b id="stat-flags">–</b><span>Flagged</span></div>
+        <div class="stat"><b id="stat-cited">–</b><span>Cited in manuscript</span></div>
+        <div class="stat"><b id="stat-ok">–</b><span>Clean</span></div>
+      </div>
+
+      <a class="mode report-mode" href="index.html">← Back to screening UI</a>
+
+      <div class="filters">
+        <label for="filter-flag">Flags</label>
+        <select id="filter-flag">
+          <option value="mismatches" selected>Tier/domain mismatches</option>
+          <option value="all">All papers</option>
+          <option value="flagged">Any flag</option>
+          <option value="clean">Clean only</option>
+          <option value="cited">Cited in manuscript</option>
+          <option value="uncited">Not cited in manuscript</option>
+        </select>
+
+        <label for="filter-review">Review decision</label>
+        <select id="filter-review">
+          <option value="undecided" selected>Undecided only</option>
+          <option value="all">All decisions</option>
+          <option value="change">Flagged to change</option>
+          <option value="keep">Keep as charted</option>
+          <option value="decided">Any decided</option>
+        </select>
+
+        <label for="filter-tier">Tier</label>
+        <select id="filter-tier">
+          <option value="all">All tiers</option>
+        </select>
+
+        <label for="filter-domain">Primary domain</label>
+        <select id="filter-domain">
+          <option value="all">All domains</option>
+        </select>
+
+        <label for="filter-flagtype">Flag type</label>
+        <select id="filter-flagtype">
+          <option value="all">Any flag type</option>
+        </select>
+
+        <label for="search">Search</label>
+        <input id="search" type="search" placeholder="ID, title, author, quote…" />
+
+        <label for="sort">Sort</label>
+        <select id="sort">
+          <option value="flags">Most flags first</option>
+          <option value="record">Record ID</option>
+          <option value="cited">Cited first</option>
+          <option value="domain">Domain</option>
+          <option value="tier">Tier</option>
+        </select>
+      </div>
+
+      <div class="sub" id="meta-note"></div>
+    </aside>
+
+    <main>
+      <header class="report-head">
+        <div>
+          <p class="eyebrow">Corpus quality control</p>
+          <h2>Categorisation &amp; citation evidence</h2>
+          <p id="lead">
+            Loading full-text audit…
+          </p>
+        </div>
+        <div class="corpus-actions">
+          <button id="btn-export" class="secondary" type="button">Export flagged CSV</button>
+        </div>
+      </header>
+
+      <div id="overview" class="audit-overview"></div>
+      <div id="count" class="report-count"></div>
+      <div id="list" class="audit-list"></div>
+    </main>
+
+    <script src="audit.js?v=20260818-audit3"></script>
+  </body>
+</html>

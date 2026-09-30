@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Supplementary review — __PROJECT__</title>
+<style>
+  :root { --bg:#0f1115; --card:#1b1f27; --line:#2c313c; --ink:#e8ebf0; --sub:#9aa4b2;
+          --inc:#2ecc71; --exc:#e74c3c; --may:#f1c40f; --accent:#5b9dff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  header { position:sticky; top:0; z-index:5; background:#0f1115ee; backdrop-filter:blur(6px); border-bottom:1px solid var(--line); padding:14px 20px; }
+  h1 { font-size:18px; margin:0 0 6px; }
+  .sub { color:var(--sub); font-size:13px; }
+  .bar { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  .counts { display:flex; gap:14px; font-size:13px; color:var(--sub); }
+  .counts b { color:var(--ink); }
+  select,input[type=search] { background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; font-size:13px; }
+  button { cursor:pointer; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:7px 11px; font-size:13px; }
+  button:hover { border-color:var(--accent); }
+  .btn-export { border-color:var(--accent); color:var(--accent); }
+  main { max-width:920px; margin:0 auto; padding:18px 20px 80px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+  .card.inc { border-left:4px solid var(--inc); } .card.exc { border-left:4px solid var(--exc); opacity:.6; } .card.may { border-left:4px solid var(--may); }
+  .tagrow { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+  .tag { font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--line); color:var(--sub); }
+  .tag.strong { color:var(--inc); border-color:var(--inc); } .tag.review_by_hand { color:var(--accent); border-color:var(--accent); }
+  .tag.op { color:#ff9f43; border-color:#ff9f43; } .tag.ex { color:var(--may); border-color:var(--may); }
+  .title { font-weight:600; margin:2px 0 4px; }
+  .metaline { color:var(--sub); font-size:13px; margin-bottom:8px; }
+  .abstract { font-size:13.5px; color:#c7cdd6; margin:8px 0; max-height:5.4em; overflow:hidden; position:relative; }
+  .abstract.open { max-height:none; }
+  .toggle { color:var(--accent); font-size:12px; cursor:pointer; }
+  a { color:var(--accent); }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .b-inc.on { background:var(--inc); color:#08130b; border-color:var(--inc); font-weight:600; }
+  .b-exc.on { background:var(--exc); color:#160707; border-color:var(--exc); font-weight:600; }
+  .b-may.on { background:var(--may); color:#171203; border-color:var(--may); font-weight:600; }
+  .empty { color:var(--sub); text-align:center; padding:40px; }
+</style>
+<style>__TOOLKIT_THEME__</style>
+</head>
+<body class="supplementary">
+<header>
+  <div class="toolkit-mark">Review &amp; synthesis toolkit</div>
+  <h1>Supplementary review — citation-chasing candidates (__PROJECT__)</h1>
+  <div class="sub">__N_TOTAL__ candidates the database search missed (__N_STRONG__ strong, __N_REVIEW__ review-by-hand).
+    Decide Include / Maybe / Exclude; decisions are saved in this browser. Export the CSV and place it in the project
+    folder as <code>citation_chase_human_decisions.csv</code>, then run <code>ingest_pending.py</code>.</div>
+  <div class="bar">
+    <label>Bucket
+      <select id="f-bucket">
+        <option value="screen">Strong + review (default)</option>
+        <option value="strong">Strong only</option>
+        <option value="review_by_hand">Review by hand</option>
+        <option value="weak_monitoring">Weak monitoring</option>
+        <option value="drop_kind">Drop kind</option>
+        <option value="all">All</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="f-status">
+        <option value="all">All</option><option value="undecided">Undecided</option>
+        <option value="Include">Include</option><option value="Maybe">Maybe</option><option value="Exclude">Exclude</option>
+      </select>
+    </label>
+    <input id="f-search" type="search" placeholder="title, author, DOI..." />
+    <span class="counts"><span><b id="c-inc">0</b> incl</span><span><b id="c-may">0</b> maybe</span>
+      <span><b id="c-exc">0</b> excl</span><span><b id="c-left">0</b> left</span></span>
+    <button class="btn-export" id="btn-export">Export decisions CSV</button>
+    <button id="btn-reset">Reset</button>
+  </div>
+</header>
+<main id="list"></main>
+<script>
+const DATA = __DATA__;
+const KEY = "supp_review_" + encodeURIComponent("__PROJECT__");
+let decisions = JSON.parse(localStorage.getItem(KEY) || "{}");
+const $ = id => document.getElementById(id);
+const esc = s => (s||"").replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function save(){ localStorage.setItem(KEY, JSON.stringify(decisions)); updateCounts(); }
+function updateCounts(){
+  let inc=0,may=0,exc=0;
+  DATA.forEach(d=>{ const v=decisions[d.id]; if(v==="Include")inc++; else if(v==="Maybe")may++; else if(v==="Exclude")exc++; });
+  $("c-inc").textContent=inc; $("c-may").textContent=may; $("c-exc").textContent=exc; $("c-left").textContent = DATA.length-inc-may-exc;
+}
+function visible(){
+  const b=$("f-bucket").value, st=$("f-status").value, q=$("f-search").value.toLowerCase().trim();
+  return DATA.filter(d=>{
+    if(b==="screen"){ if(d.bucket!=="strong"&&d.bucket!=="review_by_hand") return false; }
+    else if(b!=="all" && d.bucket!==b) return false;
+    const v=decisions[d.id]||"";
+    if(st==="undecided" && v) return false;
+    if(st!=="all" && st!=="undecided" && v!==st) return false;
+    if(q){ const hay=(d.title+" "+d.authors+" "+d.doi).toLowerCase(); if(!hay.includes(q)) return false; }
+    return true;
+  });
+}
+function set(id,val){ if(decisions[id]===val) delete decisions[id]; else decisions[id]=val; save(); render(); }
+function render(){
+  const rows=visible(); const list=$("list");
+  if(!rows.length){ list.innerHTML='<div class="empty">No candidates match.</div>'; return; }
+  list.innerHTML = rows.map(d=>{
+    const v=decisions[d.id]||""; const cls = v==="Include"?"inc":v==="Maybe"?"may":v==="Exclude"?"exc":"";
+    const dl = d.decision_link==="operational"?'<span class="tag op">operational</span>':d.decision_link==="explicit"?'<span class="tag ex">explicit</span>':"";
+    return `<div class="card ${cls}">
+      <div class="tagrow"><span class="tag">${esc(d.id)}</span><span class="tag ${d.bucket}">${esc(d.bucket)}</span>${dl}
+        <span class="tag">${d.n_links} link(s)</span><span class="tag">${esc(d.tier)} · ${esc(d.domain)}</span>
+        <span class="tag">draft: ${esc(d.draft)} (${esc(d.recommendation)}, ${esc(d.confidence)})</span></div>
+      <div class="title">${esc(d.title)}</div>
+      <div class="metaline">${esc(d.authors)} · ${esc(d.year)} · ${esc(d.journal)} · <a href="https://doi.org/${esc(d.doi)}" target="_blank" rel="noopener">${esc(d.doi)}</a></div>
+      <div class="abstract" id="ab-${d.id}">${esc(d.abstract)||'<i>No abstract retrieved.</i>'}</div>
+      ${d.abstract && d.abstract.length>260?`<span class="toggle" onclick="document.getElementById('ab-${d.id}').classList.toggle('open')">show / hide abstract</span>`:""}
+      <div class="actions">
+        <button class="b-inc ${v==="Include"?"on":""}" onclick="set('${d.id}','Include')">Include</button>
+        <button class="b-may ${v==="Maybe"?"on":""}" onclick="set('${d.id}','Maybe')">Maybe</button>
+        <button class="b-exc ${v==="Exclude"?"on":""}" onclick="set('${d.id}','Exclude')">Exclude</button>
+      </div></div>`;
+  }).join("");
+}
+function exportCsv(){
+  const lines=[["record_id","doi","decision","bucket","decision_link","year","title","authors","journal"]];
+  DATA.forEach(d=>{ const v=decisions[d.id]; if(!v) return; lines.push([d.id,d.doi,v,d.bucket,d.decision_link,d.year,d.title,d.authors,d.journal]); });
+  const csv=lines.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download="citation_chase_human_decisions.csv"; a.click();
+}
+["f-bucket","f-status"].forEach(id=>$(id).addEventListener("change",render));
+$("f-search").addEventListener("input",render);
+$("btn-export").addEventListener("click",exportCsv);
+$("btn-reset").addEventListener("click",()=>{ if(confirm("Clear all decisions saved in this browser?")){ decisions={}; save(); render(); }});
+updateCounts(); render();
+</script>
+</body>
+</html>

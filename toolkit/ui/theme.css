@@ -1,0 +1,95 @@
+/* Shared appearance for setup, screening, classification and synthesis. */
+:root {
+  --blue:#215083; --accent:#215083; --teal:#207c80;
+  --ink:#18304d; --muted:#60748a; --sub:#60748a;
+  --bg:#f3f6fa; --panel:#fff; --paper:#fff; --card:#fff;
+  --line:#dce4ed; --pale:#edf3f9; --accent-soft:#e9f0f7;
+  --include:#286b57; --include-bg:#e7f3ee; --inc:#286b57;
+  --maybe:#88601c; --maybe-bg:#fff4de; --may:#88601c;
+  --exclude:#a33e45; --exclude-bg:#f9ebec; --exc:#a33e45;
+  --flag:#a33e45; --flag-bg:#f9ebec; --ok:#286b57; --ok-bg:#e7f3ee;
+  --quote-bg:#f3f6fa; --radius:12px; --shadow:0 2px 8px #18304d06;
+  font-family:"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+html,body {background:var(--bg);color:var(--ink)}
+body {font:15px/1.5 "Segoe UI",Arial,sans-serif}
+button,input,select,textarea {font-family:inherit}
+button {background:#fff;color:var(--blue);border:1px solid #c7d5e4;border-radius:8px;padding:8px 14px;cursor:pointer}
+button,input:not([type=checkbox]):not([type=radio]),select,textarea {border-radius:8px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible {outline:3px solid #64aabc;outline-offset:2px}
+a {color:var(--blue)}
+button.primary,.primary {background:var(--blue);border-color:var(--blue);color:white}
+button.primary:hover,.primary:hover {background:#173d66}
+button:disabled {cursor:default}
+h1,h2,h3 {color:var(--ink)}
+.toolkit-mark {color:var(--teal);font-size:11px;letter-spacing:.1em;font-weight:700;text-transform:uppercase;margin-bottom:7px}
+/* Search and screening keep their queue sidebar, with the same light navigation. */
+body.screening,body.audit-page {grid-template-columns:260px minmax(0,1fr)}
+.screening aside,.audit-page aside {background:#fff;color:var(--ink);border-right:1px solid var(--line);gap:14px}
+.screening aside h1,.audit-page aside h1 {font-size:19px;letter-spacing:-.3px}
+.screening aside .sub,.audit-page aside .sub,.screening aside label,.audit-page aside label,.screening .review-list-label,.screening .stat span,.audit-page .stat span {color:var(--muted)}
+.screening .stat,.audit-page .stat {background:var(--pale);border:1px solid var(--line);border-radius:8px}
+.screening .stat b,.audit-page .stat b {color:var(--blue)}
+.screening .progress {background:var(--line)}
+.screening .progress>i {background:var(--teal)}
+.screening aside .mode,.audit-page aside .mode {background:white;color:var(--blue);border:1px solid var(--line);border-radius:8px;font-size:13px;font-weight:600;padding:9px}
+.screening aside .mode.active {background:var(--accent-soft);border-color:#bbccdf}
+.screening .filters select,.screening .filters input {background:white;border:1px solid var(--line);font-size:13px}
+.screening .review-list button {color:var(--ink);background:var(--pale);border:1px solid transparent}
+.screening .review-list button.current,.screening .review-list button:hover {background:var(--accent-soft);border-color:#bbccdf}
+.screening .review-list .empty-list {color:var(--muted)}
+.screening .side-actions button,.screening .side-actions button.secondary,.audit-page .side-actions button {color:var(--blue);background:white;border:1px solid var(--line);font-size:13px}
+.screening .card {box-shadow:var(--shadow);border-radius:12px}
+.screening .card h2 {font-size:23px;font-weight:650}
+.screening .toolbar {font-size:13px}
+.screening .toolbar .meta {font-size:13px}
+.screening .meta-grid div {background:var(--pale)}
+.screening .report-table tbody tr:hover {background:var(--pale)}
+.screening .report-table thead th {background:var(--pale);color:var(--ink)}
+.screening .ai-banner {border-width:1px;border-radius:10px}
+.screening .ai-banner-label {font-size:11px;letter-spacing:.06em}
+.screening .ai-banner-decision {font-size:21px;font-weight:650}
+.screening .decision-row button {opacity:1;min-height:90px;border:1px solid var(--line);box-shadow:none;transform:none;font-weight:600}
+.screening .decision-row button.ai-pick {box-shadow:none;transform:none;border-color:currentColor}
+.screening .decision-row button.active {outline:2px solid currentColor;outline-offset:2px}
+.screening .decision-row button .btn-label {font-size:16px}
+.screening .decision-row button .btn-reason.muted {opacity:1;color:var(--muted)}
+/* Search-project editor: the same cards as the four-step setup. */
+body.setup main {padding:0 24px 48px;max-width:1240px;min-width:0}
+.setup .sticky {background:#fff;margin:0 -24px 24px;padding:16px 24px;box-shadow:0 2px 8px #18304d06}
+.setup .blk {background:white;border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:20px 0;overflow-x:auto}
+.setup .blk h2 {margin:0 0 16px;font-size:21px;color:var(--ink)}
+.setup h3 {text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink)}
+.setup label.f {font-size:13px}
+.setup input[type=text],.setup input[type=number],.setup textarea,.setup select {padding:8px 10px;font-size:13px}
+.setup button {padding:8px 12px;font-size:13px;color:var(--blue)}
+.setup table.edit th {font-size:12px;background:var(--pale);padding:9px}
+.setup table.edit td {padding:8px 5px;border-bottom:1px solid var(--line)}
+.setup pre#log {background:var(--pale);color:var(--ink);border:1px solid var(--line)}
+/* Standalone citation review exports embed this stylesheet. */
+.supplementary header {background:white;backdrop-filter:none;padding:20px 28px}
+.supplementary .abstract {color:var(--ink)}
+.supplementary .tag.op {color:var(--maybe);border-color:var(--maybe)}
+.supplementary .b-inc.on,.supplementary .b-exc.on,.supplementary .b-may.on {color:white}
+.supplementary .card.exc {opacity:1}
+.workflow-page {display:block}
+.workflow-page main {max-width:940px;margin:32px auto;padding:28px;background:white;border:1px solid var(--line);border-radius:12px}
+.workflow-page h1 {font-size:26px}
+.workflow-page li {margin:10px 0}
+@media(max-width:800px){
+ body.screening,body.audit-page {display:block}
+ .screening aside,.audit-page aside {position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+ .screening .stats {grid-template-columns:repeat(3,minmax(0,1fr))}
+ .screening .review-list-wrap {display:none}
+ .screening main,.audit-page main {padding:16px}
+ .screening .toolbar {flex-wrap:wrap}
+ .screening .decision-row {grid-template-columns:1fr}
+ .screening .extras {grid-template-columns:1fr}
+ .setup .blk {padding:18px 14px}
+ .setup .files {columns:1}
+ .workflow-page main {margin:16px}
+}
+
+/* Development attribution, separate from review decisions. */
+.toolkit-credit { color: var(--muted, #60748a); font-size: 12px; line-height: 1.45; margin: 6px 0 10px; font-weight: 400; }

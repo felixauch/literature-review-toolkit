@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Literature review toolkit — project setup</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body.setup { display: block; }
+      body.setup main { padding: 1rem 2rem 4rem; max-width: 1180px; margin: 0 auto; }
+      .setup h2 { margin: 1.8rem 0 0.4rem; font-size: 1.15rem; color: var(--accent); }
+      .setup h3 { margin: 1rem 0 0.3rem; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+      .setup .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.6rem 1rem; }
+      .setup label.f { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; color: var(--muted); }
+      .setup input[type=text], .setup input[type=number], .setup textarea, .setup select {
+        width: 100%; box-sizing: border-box; font: inherit; font-size: 0.86rem; padding: 0.35rem 0.5rem;
+        border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+      .setup input:focus, .setup textarea:focus, .setup select:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+      .setup textarea { min-height: 2.4rem; font-family: ui-monospace, Consolas, monospace; font-size: 0.8rem; resize: vertical; }
+      .setup table.edit { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+      .setup table.edit th { color: var(--muted); font-weight: 600; }
+      .setup table.edit th, .setup table.edit td { padding: 0.25rem 0.3rem; vertical-align: top; text-align: left; }
+      .setup table.edit td input, .setup table.edit td textarea { width: 100%; }
+      .setup button { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 0.35rem 0.7rem; cursor: pointer; }
+      .setup button:hover { border-color: var(--accent); }
+      .setup button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+      .setup .row-actions button { padding: 0.1rem 0.4rem; font-size: 0.75rem; }
+      .setup .hits { font-size: 0.75rem; color: var(--accent); }
+      .setup .problems { border-left: 3px solid var(--maybe); background: var(--maybe-bg); padding: 0.4rem 0.7rem; margin: 0.6rem 0; font-size: 0.85rem; border-radius: 0 8px 8px 0; }
+      .setup .problems.ok { border-color: var(--include); background: var(--include-bg); }
+      .setup .stage-group { margin: 0.5rem 0 0.9rem; }
+      .setup .stage-group .btns { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+      .setup .stage-group button.net { border-style: dashed; }
+      .setup pre#log { background: #1c1a17; color: #e8e4dc; border-radius: 8px; padding: 0.7rem; min-height: 8rem; max-height: 22rem; overflow: auto; font-size: 0.78rem; white-space: pre-wrap; }
+      .setup .files { font-size: 0.8rem; columns: 2; column-gap: 2rem; }
+      .setup .files div { break-inside: avoid; display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.1rem 0; border-bottom: 1px dotted var(--line); }
+      .setup .files .no { opacity: 0.45; }
+      .setup .sticky { position: sticky; top: 0; z-index: 3; background: var(--bg); padding: 0.6rem 0; display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+      .setup .badge-frozen { background: var(--maybe); color: #fff; padding: 0.1rem 0.5rem; border-radius: 12px; font-size: 0.75rem; }
+      .setup details { margin: 0.4rem 0; }
+      .setup summary { cursor: pointer; font-size: 0.85rem; color: var(--accent); }
+      .setup .hint { font-size: 0.8rem; color: var(--muted); }
+      .setup .hint code, .setup p code { background: var(--accent-soft); padding: 0 0.25rem; border-radius: 4px; }
+      .setup .examples { font-size: 0.78rem; margin: 0.3rem 0 0 0; }
+      .setup a { color: var(--accent); }
+    </style>
+  <link rel="stylesheet" href="theme.css?v=20260924" />
+</head>
+  <body class="setup">
+    <main>
+      <div class="sticky">
+        <a href="index.html">← Review UI</a>
+        <strong id="proj-name">Loading…</strong>
+        <span id="proj-frozen"></span>
+        <span class="hint" id="proj-root"></span>
+        <span style="flex:1"></span>
+        <button id="btn-test">Test patterns &amp; rules</button>
+        <button id="btn-save" class="primary">Save project.json</button>
+      </div>
+      <div id="problems" class="problems">Checking…</div>
+
+      <section class="blk" id="blk-project">
+      <h2>1 · Project</h2>
+      <div class="grid">
+        <label class="f">Name <input type="text" data-path="name" /></label>
+        <label class="f">Slug <input type="text" data-path="slug" /></label>
+        <label class="f">Contact e-mail (sent to Crossref/OpenAlex/Unpaywall) <input type="text" data-path="contact_email" /></label>
+        <label class="f">Population label (used in generated reasons, e.g. “urban setting”) <input type="text" data-path="population_label" /></label>
+        <label class="f">Minimum year <input type="number" data-path="limits.min_year" /></label>
+        <label class="f">Languages (comma) <input type="text" data-path="limits.languages" data-type="list" /></label>
+        <label class="f">Record prefix <input type="text" data-path="record_prefix" /></label>
+        <label class="f">Supplementary prefix <input type="text" data-path="supplementary_prefix" /></label>
+        <label class="f">Zotero storage folder <input type="text" data-path="paths.zotero_storage" placeholder="~/Zotero/storage" /></label>
+        <label class="f">Download folders (comma) <input type="text" data-path="paths.download_dirs" data-type="list" placeholder="~/Downloads" /></label>
+        <label class="f">UI title <input type="text" data-path="ui.title" /></label>
+        <label class="f">UI subtitle <input type="text" data-path="ui.subtitle" /></label>
+        <label class="f">Frozen (read-only) <select data-path="frozen" data-type="bool"><option value="false">no</option><option value="true">yes</option></select></label>
+        <label class="f">Strict decision-coupled bar for citation chasing <select data-path="chase_strict_bar" data-type="bool"><option value="true">yes</option><option value="false">no</option></select></label>
+      </div>
+      <label class="f" style="margin-top:0.6rem">Description <textarea data-path="description"></textarea></label>
+
+      </section>
+      <section class="blk" id="blk-exports">
+      <h2>2 · Database exports</h2>
+      <p class="hint">Put the files in <code>exports/</code> inside the project folder. Formats: <code>bibtex</code>, <code>ieee_csv</code> or <code>csv</code> with a column map in project.json.</p>
+      <table class="edit" id="exports"></table>
+      <button id="add-export">+ export</button>
+      <h3>Abstract supplements (optional second exports with abstracts)</h3>
+      <table class="edit" id="supplements"></table>
+      <button id="add-supplement">+ supplement</button>
+
+      </section>
+      <section class="blk" id="blk-vocabulary">
+      <h2>3 · Vocabulary (regular expressions, case-insensitive)</h2>
+      <p class="hint">Hit counts appear after <em>Test</em>: how many titles/abstracts in the project (or in the pasted sample) match each pattern.</p>
+      <h3>Title–abstract screening</h3>
+      <div class="grid" id="patterns-screen"></div>
+      <h3>Full text</h3>
+      <div class="grid" id="patterns-ft"></div>
+      <h3>Charting and chasing</h3>
+      <div class="grid" id="patterns-other"></div>
+
+      </section>
+      <section class="blk" id="blk-rules">
+      <h2>4 · Screening rules (evaluated in order; first match wins)</h2>
+      <p class="hint">Condition syntax: <code>title:population</code>, <code>abstract:x</code>, <code>text:x</code> (title + abstract head), flags
+        <code>title_only</code>, <code>has_abstract</code>, <code>year_before_min</code>, <code>no_year</code>, <code>always</code>; operators <code>&amp;</code> <code>|</code> <code>!</code> and parentheses.
+        Reason may use <code>{year}</code> and <code>{min_year}</code>.</p>
+      <table class="edit" id="rules"></table>
+      <button id="add-rule">+ rule</button>
+      <details><summary>Test against a pasted sample instead of the project's titles</summary>
+        <textarea id="sample" placeholder="one title per line"></textarea></details>
+      <div id="test-out"></div>
+
+      </section>
+      <section class="blk" id="blk-taxonomy">
+      <h2>5 · Optional single-label reports</h2>
+      <p class="hint">For the current multi-label classification and evidence form, open Start review.cmd after full-text screening, select your search project and choose Use included papers. Configure the labels and evidence fields on the browser setup page. The optional fields below only control the earlier single-label reports.</p><h3>Domains</h3>
+      <table class="edit" id="domains"></table>
+      <button id="add-domain">+ domain</button>
+      <h3>Tiers (first matching pattern wins; last tier is usually the default)</h3>
+      <table class="edit" id="tiers"></table>
+      <button id="add-tier">+ tier</button>
+      <div class="grid" style="margin-top:0.6rem">
+        <label class="f">Default domain <input type="text" data-path="taxonomy.default_domain" /></label>
+        <label class="f">Default tier <input type="text" data-path="taxonomy.default_tier" /></label>
+        <label class="f">Operational tiers (comma; may carry an operational link) <input type="text" data-path="taxonomy.operational_tiers" data-type="list" /></label>
+        <label class="f">Saturated domains (comma; stricter relevance) <input type="text" data-path="taxonomy.saturated_domains" data-type="list" /></label>
+        <label class="f">Link label: implicit <input type="text" data-path="taxonomy.link_labels.implicit" /></label>
+        <label class="f">Link label: explicit <input type="text" data-path="taxonomy.link_labels.explicit" /></label>
+        <label class="f">Link label: operational <input type="text" data-path="taxonomy.link_labels.operational" /></label>
+      </div>
+
+      </section>
+      <section class="blk" id="blk-lists">
+      <h2>6 · Lists</h2>
+      <div class="grid">
+        <label class="f">Exclusion codes (comma) <textarea data-path="exclusion_codes" data-type="list"></textarea></label>
+        <label class="f">Completeness queries (one per line) <textarea data-path="completeness_queries" data-type="lines"></textarea></label>
+        <label class="f">Contested record IDs (comma; go to queue A2) <textarea data-path="contested_ids" data-type="list"></textarea></label>
+      </div>
+
+      </section>
+      <section class="blk" id="blk-run">
+      <h2>7 · Run stages</h2>
+      <p class="hint">Each button runs one script on this project with the saved project.json (save first). Dashed buttons call external services.</p>
+      <div id="stages"></div>
+      <div style="display:flex;gap:0.6rem;align-items:center;margin:0.4rem 0">
+        <strong id="run-state">idle</strong>
+        <button id="btn-stop">Stop</button>
+        <button id="btn-rebuild">Refresh review data</button>
+        <span style="flex:1"></span>
+        <a href="index.html">Open review UI</a>
+        <a href="supplementary_review.html" target="_blank">Supplementary page</a>
+        <a href="fulltext_audit.html">Audit page</a>
+      </div>
+      <pre id="log"></pre>
+
+      </section>
+      <section class="blk" id="blk-files">
+      <h2>8 · Project files</h2>
+      <div class="files" id="files"></div>
+
+      </section>
+      <section class="blk"><h2>Next · Classification, evidence and synthesis</h2><p>Run <b>Start review.cmd</b> and choose <b>3</b>. It connects the reviewed records and local PDFs to the combined multi-label workspace. <a href="workflow.html">See the handoff steps</a>.</p></section>
+      <section class="blk" id="blk-new">
+      <h2>9 · New project</h2>
+      <div class="grid">
+        <label class="f">Slug (folder name) <input type="text" id="new-slug" placeholder="urban-heat-2027" /></label>
+        <label class="f">Name <input type="text" id="new-name" placeholder="Urban heat islands and remote sensing" /></label>
+      </div>
+      <button id="btn-new">Create from template</button>
+      <span class="hint" id="new-out"></span>
+      <div class="hint" id="projects"></div>
+      </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="setup.js"></script>
+  </body>
+</html>
