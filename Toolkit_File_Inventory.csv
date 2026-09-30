@@ -2,6 +2,7 @@
 .gitignore,"Package documentation, templates and dependencies","Keeps local environments, generated records and user projects out of version control."
 CSV_STORAGE.md,"Package documentation, templates and dependencies","Explains CSV histories, current views, backups, migration and explorer export."
 DATA STRUCTURE.md,"Package documentation, templates and dependencies",Explains package folders and the data created when a user starts a review.
+LICENSE,"Package documentation, templates and dependencies","States the MIT licence, copyright notice and conditions for using, modifying and distributing the toolkit."
 Literature review toolkit - complete guide.pdf,"Package documentation, templates and dependencies",Provides the illustrated guide from project setup to review and export.
 NETWORK_AND_MODEL_AUDIT.md,"Package documentation, templates and dependencies","Documents network access, model-related behaviour and recorded checks."
 PACKAGE_MANIFEST.json,"Package documentation, templates and dependencies","Records the empty software release, its checks and packaged file hashes."

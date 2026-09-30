@@ -16,3 +16,7 @@ For a new search, choose **Search & screening projects**. If you already have me
 **Workflow figure:** Toolkit workflow.pdf, Toolkit workflow.svg and Toolkit workflow.png.
 
 Development and documentation: assistance from GPT-6 Astra.
+
+## Licence
+
+This toolkit is released under the [MIT licence](LICENSE).

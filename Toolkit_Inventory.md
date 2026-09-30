@@ -4,7 +4,7 @@
 
 An empty, configurable toolkit for literature searches, screening, classification, evidence extraction and synthesis. It includes reusable scripts, blank templates, documentation and tests.
 
-All **122 packaged files** are described below and listed individually in `Toolkit_File_Inventory.csv`. The workflow includes all **76 script and command files**. Paths are relative to the package root.
+All **123 packaged files** are described below and listed individually in `Toolkit_File_Inventory.csv`. The workflow includes all **76 script and command files**. Paths are relative to the package root.
 
 ## Workflow and full inventory
 
@@ -153,6 +153,7 @@ All **122 packaged files** are described below and listed individually in `Toolk
 | `.gitignore` | Keeps local environments, generated records and user projects out of version control. |
 | `CSV_STORAGE.md` | Explains CSV histories, current views, backups, migration and explorer export. |
 | `DATA STRUCTURE.md` | Explains package folders and the data created when a user starts a review. |
+| `LICENSE` | States the MIT licence, copyright notice and conditions for using, modifying and distributing the toolkit. |
 | `Literature review toolkit - complete guide.pdf` | Provides the illustrated guide from project setup to review and export. |
 | `NETWORK_AND_MODEL_AUDIT.md` | Documents network access, model-related behaviour and recorded checks. |
 | `PACKAGE_MANIFEST.json` | Records the empty software release, its checks and packaged file hashes. |
