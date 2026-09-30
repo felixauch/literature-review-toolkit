@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "name": "",
+  "categories": [],
+  "domains": [],
+  "fields": [],
+  "domain_notes": [],
+  "context": {
+    "suppress_future": true,
+    "suppress_background": true,
+    "suppress_attribution": true,
+    "suppress_negation": true
+  },
+  "reading_plan": {
+    "groups": [],
+    "reason_choices": []
+  }
+}
+

@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict');
+const {synthesisCounts,makeSynthesisMatrix,filterSynthesisRows}=require('./synthesis/static/synthesis-map.js');
+const field={id:'stage',type:'multi',options:['A','B']};
+const row=(id,groups,state,choices)=>({record_id:id,report_core_domains:groups,report_categories:'X; X',review:{payload:{fields:{stage:{state,choices}}}}});
+const a=row('1','North; North; South','recorded',['A','A','B']);
+const b=row('2','North','unclear',['A']);
+const c=row('3','','recorded',[]);
+const rows=[a,a,b,c];
+assert.deepEqual(synthesisCounts(rows,field),{total:3,counts:[{option:'A',n:1},{option:'B',n:1}],missing:2});
+const matrix=makeSynthesisMatrix(rows,field,'domains',['North','South','Empty']);
+assert.deepEqual(matrix.map(r=>[r.name,r.total,r.counts[0].n,r.missing]),[['North',2,1,1],['South',1,1,0],['Empty',0,0,0],[null,1,0,1]]);
+assert.deepEqual(filterSynthesisRows(rows,{dimension:'domains',group:'North',fieldId:'stage',option:null},[field]).map(r=>r.record_id),['2']);
+assert.deepEqual(filterSynthesisRows(rows,{dimension:'domains',group:null},[field]).map(r=>r.record_id),['3']);
+assert.equal(makeSynthesisMatrix(rows,field,'categories',['X'])[0].total,3);
+assert.equal(synthesisCounts([],field).missing,0);
+console.log('PASS: unique-paper counts, overlaps, missing evidence, empty groups, and drill-down filters.');
